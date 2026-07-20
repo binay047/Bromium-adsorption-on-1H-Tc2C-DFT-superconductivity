@@ -1,0 +1,6 @@
+&INPUT
+prefix = 'aiida ',
+outdir = './out/',
+filhess = 'aiida.hess '
+step = 1.0d-3
+/

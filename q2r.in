@@ -1,0 +1,7 @@
+&input
+  fildyn = 'Br2Tc2C.dyn'
+  zasr = 'crystal'
+  flfrc = 'Br2Tc2C_k441.fc'
+  la2F = .true.
+/
+
