@@ -1,8 +1,10 @@
 # Br_2Tc_2C-superconductivity
-Here, I have calculated Tc of Bromium-adsorbed Tc2C monolayers. 
+! Here, I have calculated Tc of Bromium-adsorbed Tc2C monolayers. 
+! At first, run scf. in keeping Bromine above Tc, above Carbon, and in the middle of two Tc; whichever case has the lowest energy, take that configuration of atomic position and proceed to vc-relax calculation and reach up to phonon calculation.
+! If you get any negative frequency in xxxx.frq.gp files, return to the initial calculation and apply either compressive or tensile strain (-3% to +3%), and do a relax calculation
 pw.x < relax.in > relax. out
 Now, update the final atomic positions in the SCF calculations from relax.out and keep them the same throughout the entire calculation. 
-!For 6, 7, 8, and 9, please use the same number of cores (n) in mpirun -np n; otherwise, you will encounter a crash. 
+!For below (scf.in, dense. in, d3hess.in, ph.in), please use the same number of cores (n) in mpirun -np n; otherwise, you will encounter a crash. 
 pw.x < scf.in > scf.out 
 pw.x < dense.in > dense.out
 d3hess.x < d3hess.in > d3hess.out
