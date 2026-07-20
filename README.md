@@ -32,3 +32,8 @@ elph_dir/elph.inp_lambda.2
 elph_dir/elph.inp_lambda.3
 elph_dir/elph.inp_lambda.4
 0.10
+
+# Now plotting Eliasberg spectral function and electron-coupling constant
+python3 extract_a2F_lambda.py
+! For plotting it using xmgrace, you can watch here: www.youtube.com/@BinayLimbu-bk7yw
+
