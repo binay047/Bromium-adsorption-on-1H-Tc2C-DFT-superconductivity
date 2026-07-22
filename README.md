@@ -107,6 +107,4 @@ python3 extract_a2F_lambda.py
 plot. dat using xmgrace
 
 
-If you remember this order, you can reproduce the entire superconductivity workflow easily in the future.
-
 
