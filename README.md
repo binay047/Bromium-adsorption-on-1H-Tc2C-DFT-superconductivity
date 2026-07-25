@@ -22,7 +22,7 @@ Run a quick SCF calculation for each structure and compare the total energies.
 pw.x < scf_topTc.in > scf_topTc.out
 pw.x < scf_topC.in  > scf_topC.out
 pw.x < scf_bridge.in > scf_bridge.out
-Choose the structure with the **lowest total energy**, and also tot and abs magnetisation need to be zero.
+Choose the structure with the **lowest total energy**, and also total and absolute magnetisation need to be zero.
 
 ## 2. Optimise the structure (vc-relax)
 Run variable-cell relaxation:
@@ -115,6 +115,7 @@ note: if there is any minus sign in elph. inp_lambda.* lines before Gauss broade
 ## 12. Generate α²F(ω) and λ(ω)
 
 Run:
+Inside extract_q2F_lambda.py, in filename you need to paste the path to a2F.dos10, and a2F.dos10 is chosen using the converged value of Tc calculated from lambda.in
 python3 extract_a2F_lambda.py
 plot. dat using xmgrace
 
