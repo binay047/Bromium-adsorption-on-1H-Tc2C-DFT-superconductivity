@@ -1,5 +1,17 @@
 # Br-adsorbed Tc₂C superconductivity workflow (Quantum ESPRESSO)
 This guide explains the complete workflow used to calculate the superconducting critical temperature (Tc) of a bromine (Br) adsorbed Tc₂C monolayer.
+## A. Optimisation of planewave (ecutwfc)
+## B. Optimisation of k-points
+## C. Optimisation of pseudopotential
+## D. Optimisation of degauss value
+Here, run the following two lines of code
+chmod +x degauss.sh
+./degauss.sh
+after then smearing_results.dat file will be created, and use the awk command
+awk '$1=="fd" {print $2, $3}' smearing_results.dat > fd.dat
+awk '$1=="gauss" {print $2, $3}' smearing_results.dat > gauss.dat
+awk '$1=="mp" {print $2, $3}' smearing_results.dat > mp.dat
+awk '$1=="mv" {print $2, $3}' smearing_results.dat > mv.dat
 
 ## 1. Build adsorption structures
 Create three structures by placing the Br atom at different adsorption sites:
