@@ -1,6 +1,5 @@
 import numpy as np
-
-file_path = "/home/binay/Desktop/DFT/Superconductivity/Br_1H_Tc_2C/a2F.dos1"
+file_path = "/home/binay/Desktop/DFT/Superconductivity/Br_1H_Tc_2C/a2F.dos10" # Here, you need to paste the path to a2F.dos10 and a2F.dos10 is chosen using the converged value of Tc calculated from lambda.in
 freq, a2F = [], []
 with open(file_path, "r") as f:
     for line in f:
