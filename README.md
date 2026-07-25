@@ -99,7 +99,7 @@ elph_dir/elph.inp_lambda.4
 * elph.inp_lambda.* → electron–phonon data files.
 * 0.10 → Coulomb pseudopotential (μ*).
 lambda.x <lambda.in> lambda.out
-
+note: if there is any minus sign in elph. inp_lambda.* lines before Gauss broadening, then remove the negative sign
 ## 12. Generate α²F(ω) and λ(ω)
 
 Run:
