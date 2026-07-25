@@ -115,7 +115,7 @@ note: if there is any minus sign in elph. inp_lambda.* lines before Gauss broade
 ## 12. Generate α²F(ω) and λ(ω)
 
 Run:
-Inside extract_q2F_lambda.py, in filename you need to paste the path to a2F.dos10, and a2F.dos10 is chosen using the converged value of Tc calculated from lambda.in
+Inside extract_q2F_lambda.py, in file_path, you need to paste the path to a2F.dos10, and a2F.dos10 is chosen using the converged value of Tc calculated from lambda.in
 python3 extract_a2F_lambda.py
 plot. dat using xmgrace
 
