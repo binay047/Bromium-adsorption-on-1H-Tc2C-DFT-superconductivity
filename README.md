@@ -53,7 +53,7 @@ Update the atomic positions from relax.out and use them in every later step.
 
 ## 4. SCF calculation
 
-Use the **same number of MPI cores** for all calculations below.
+Use the **same number of MPI cores** for all calculations below if you are doing calculations using recover mode.
 
 Example with 8 cores:
 mpirun -np 8 pw.x < scf.in > scf.out
@@ -85,9 +85,9 @@ Check the generated *.frq.gp files for negative frequencies.
 matdyn.x < phdos.in > phdos.out
 Extract total and atomic contributions:
 awk '{print $1,$2}' matdyn.phdos > total.dat
-awk '{print $1,$3}' matdyn.phdos > Br.dat
-awk '{print $1,$5}' matdyn.phdos > C.dat
-awk '{print $1,$6}' matdyn.phdos > Tc.dat
+awk '{print $1, $3+$4}' matdyn.phdos > Br.dat   # atoms 1+2 = Br
+awk '{print $1, $5}'     matdyn.phdos > C.dat    # atom 3 = C
+awk '{print $1, $6+$7}' matdyn.phdos > Tc.dat   # atoms 4+5 = Tc
 **Purpose:** Obtain total and atom-projected phonon DOS.
 
 ## 11. Prepare electron–phonon coupling input for lambda.in
@@ -115,7 +115,7 @@ note: if there is any minus sign in elph. inp_lambda.* lines before Gauss broade
 ## 12. Generate α²F(ω) and λ(ω)
 
 Run:
-Inside extract_q2F_lambda.py, in file_path, you need to paste the path to a2F.dos10, and a2F.dos10 is chosen using the converged value of Tc calculated from lambda.in
+Inside extract_a2F_lambda.py, in file_path, you need to paste the path to a2F.dos10, and a2F.dos10 is chosen using the converged value of Tc calculated from lambda.in
 python3 extract_a2F_lambda.py
 plot. dat using xmgrace
 
