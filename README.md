@@ -118,6 +118,8 @@ Run:
 Inside extract_a2F_lambda.py, in file_path, you need to paste the path to a2F.dos10, and a2F.dos10 is chosen using the converged value of Tc calculated from lambda.in
 python3 extract_a2F_lambda.py
 plot. dat using xmgrace
-
+## 13. plot linewidth
+lambda.x <linewidth.in> linewidth.out
+and run linewidth_plot.py
 
 
