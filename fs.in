@@ -1,0 +1,4 @@
+&FERMI
+  prefix = 'aiida'
+  outdir = './out/'
+/
