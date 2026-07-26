@@ -120,6 +120,6 @@ python3 extract_a2F_lambda.py
 plot. dat using xmgrace
 ## 13. plot linewidth
 lambda.x <linewidth.in> linewidth.out
-and run linewidth_plot.py
+and run python3 linewidth_plot.py
 
 
