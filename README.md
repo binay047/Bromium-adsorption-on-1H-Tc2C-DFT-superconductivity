@@ -121,5 +121,7 @@ plot. dat using xmgrace
 ## 13. plot linewidth
 lambda.x <linewidth.in> linewidth.out
 and run python3 linewidth_plot.py
+## 13. 
+python3 plot_fermi_surface.py aiida_fs.bxsf -o fermi_surface_Tc2CBr2.png
 
 
