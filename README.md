@@ -15,8 +15,23 @@ Create three structures by placing the Br atom at different adsorption sites:
 ## 2. Convergence test
  
 ## 2.A. Optimisation of planewave (ecutwfc)
+* chmod +x ecut.sh
+* ./ecut.sh
+* Take an ecut that is converged and use that in the input file for optimisation of k-points
 ## 2.B. Optimisation of k-points
+* chmod +x kpoi.t.sh
+* ./kpoint.sh
+* Take a converged and use that in the input file for optimisation of lattice
 ## 2.C. Optimisation of lattice
+* chmod +x lattice.sh
+* ./lattice.sh
+* In the same lattice directory, in the terminal enter ev.x
+* ang
+* noncubic
+* 4
+* input file name: lattice.dat
+* output file name: bin
+* take this a0 from bin into vc_relax.in
 ## 2.D. Do vc-relax
 * Run variable-cell relaxation:
 * pw.x < vc_relax.in > vc_relax.out
