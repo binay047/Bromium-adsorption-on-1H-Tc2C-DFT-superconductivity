@@ -124,6 +124,7 @@ After phonon calculations, check the *.frq.gp files.
 ## 13. plot linewidth
 * plotband.x <linewidth.in> linewidth.out
 * and run python3 linewidth_plot.py
+* plot elph.gamma.5.gnu using xmgrace
 ## 13. 
 * python3 plot_fermi_surface.py aiida_fs.bxsf -o fermi_surface_Tc2CBr2.png
 
