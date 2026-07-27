@@ -7,37 +7,37 @@ Create three structures by placing the Br atom at different adsorption sites:
 * **Top of C** → Br has the same x and y coordinates as the C atom.
 * **Bridge site** → Br is placed midway between two Tc atoms.
 * Run a quick SCF calculation for each structure and compare the total energies.
-pw.x < scf_topTc.in > scf_topTc.out
-pw.x < scf_topC.in  > scf_topC.out
-pw.x < scf_bridge.in > scf_bridge.out
-Choose the structure with the **lowest total energy**, and also total and absolute magnetisation need to be zero.
+* pw.x < scf_topTc.in > scf_topTc.out
+* pw.x < scf_topC.in  > scf_topC.out
+* pw.x < scf_bridge.in > scf_bridge.out
+* Choose the structure with the **lowest total energy**, and also total and absolute magnetisation need to be zero.
 
 ## 2. Convergence test
-
+ 
 ## 2.A. Optimisation of planewave (ecutwfc)
 ## 2.B. Optimisation of k-points
 ## 2.C. Optimisation of lattice
 ## 2.D. Do vc-relax
-Run variable-cell relaxation:
-pw.x < vc_relax.in > vc_relax.out
-Copy the following from "vc_relax. out":
+* Run variable-cell relaxation:
+* pw.x < vc_relax.in > vc_relax.out
+* Copy the following from "vc_relax. out":
 * "CELL_PARAMETERS"
 * "ATOMIC_POSITIONS"
-Note: BFGS must be converged, and to find relaxed  cell_parameters and atomic_positions, press Ctrl + F inside vc_relax.out and type 'final bfgs'
-Paste them into:
+* Note: BFGS must be converged, and to find relaxed  cell_parameters and atomic_positions, press Ctrl + F inside vc_relax.out and type 'final bfgs'
+* Paste them into:
 * "scf.in"
 * "dense_scf.in"
-Use these optimised positions for all remaining calculations.
+* Use these optimised positions for all remaining calculations.
 ## 2.E. Optimisation of pseudopotential
 ## 2.F. Optimisation of degauss value
-Here, run the following two lines of code
-chmod +x degauss.sh
-./degauss.sh
-after then smearing_results.dat file will be created, and use the awk command
-awk '$1=="fd" {print $2, $3}' smearing_results.dat > fd.dat
-awk '$1=="gauss" {print $2, $3}' smearing_results.dat > gauss.dat
-awk '$1=="mp" {print $2, $3}' smearing_results.dat > mp.dat
-awk '$1=="mv" {print $2, $3}' smearing_results.dat > mv.dat
+* Here, run the following two lines of code
+* chmod +x degauss.sh
+* ./degauss.sh
+* After that, the smearing_results.dat file will be created, and use the awk command
+* awk '$1=="fd" {print $2, $3}' smearing_results.dat > fd.dat
+* awk '$1=="gauss" {print $2, $3}' smearing_results.dat > gauss.dat
+* awk '$1=="mp" {print $2, $3}' smearing_results.dat > mp.dat
+* awk '$1=="mv" {print $2, $3}' smearing_results.dat > mv.dat
 
 ## 3. If negative phonon frequencies appear
 After phonon calculations, check the *.frq.gp files.
@@ -48,49 +48,49 @@ After phonon calculations, check the *.frq.gp files.
 * −1%, −2%, or −3%
 ### Tensile strain
 * +1%, +2%, or +3%
-Note: apply uniaxial strain, leaving the last row of cell_parameters untouched 
-For example: to apply 1% tensile strain, you need to multiply the 1st and 2nd rows of cell_parameters by 1.01, and for compressive 1% by 0.99
-Run relaxation again:
-pw.x < relax.in > relax. out
-Update the atomic positions from relax.out and use them in every later step.
+* Note: apply uniaxial strain, leaving the last row of cell_parameters untouched 
+* For example: to apply 1% tensile strain, you need to multiply the 1st and 2nd rows of cell_parameters by 1.01, and for compressive 1% by 0.99
+* Run relaxation again:
+* pw.x < relax.in > relax. out
+* Update the atomic positions from relax.out and use them in every later step.
 
 ## 4. SCF calculation
 
-Use the **same number of MPI cores** for all calculations below if you are doing calculations using recover mode.
+* Use the **same number of MPI cores** for all calculations below if you are doing calculations using recover mode.
 
-Example with 8 cores:
-mpirun -np 8 pw.x < scf.in > scf.out
+* Example with 8 cores:
+* mpirun -np 8 pw.x < scf.in > scf.out
 
 ## 5. Dense electronic calculation
 
 ## 6. D3 Hessian calculation (only if D3 correction is used)
-If scf. in contains:
-vdw_corr = 'grimme-d3'
-dftd3_threebody = .false.
-run:
-mpirun -np 8 d3hess.x < d3hess.in > d3hess.out
-Otherwise, skip this step.
+* If scf. in contains:
+* vdw_corr = 'grimme-d3'
+* dftd3_threebody = .false.
+* run:
+* mpirun -np 8 d3hess.x < d3hess.in > d3hess.out
+  Otherwise, skip this step.
 
 ## 7. Phonon calculation
-mpirun -np 8 ph.x < ph.in > ph.out
+* mpirun -np 8 ph.x < ph.in > ph.out
 
 ## 8. Convert dynamical matrices
-q2r.x < q2r.in > q2r.out
+* q2r.x < q2r.in > q2r.out
 **Purpose:** Convert phonon data to real-space force constants.
 
 ## 9. Phonon band structure
-matdyn.x < matdyn.in > matdyn.out
-plotband.x < plotband.in > plotband.out
+* matdyn.x < matdyn.in > matdyn.out
+* plotband.x < plotband.in > plotband.out
 **Purpose:** Generate phonon dispersion data for plotting.
-Check the generated *.frq.gp files for negative frequencies.
+* Check the generated *.frq.gp files for negative frequencies.
 
 ## 10. Phonon density of states (PhDOS)
-matdyn.x < phdos.in > phdos.out
-Extract total and atomic contributions:
-awk '{print $1,$2}' matdyn.phdos > total.dat
-awk '{print $1, $3+$4}' matdyn.phdos > Br.dat   # atoms 1+2 = Br
-awk '{print $1, $5}'     matdyn.phdos > C.dat    # atom 3 = C
-awk '{print $1, $6+$7}' matdyn.phdos > Tc.dat   # atoms 4+5 = Tc
+* matdyn.x < phdos.in > phdos.out
+* Extract total and atomic contributions:
+* awk '{print $1,$2}' matdyn.phdos > total.dat
+* awk '{print $1, $3+$4}' matdyn.phdos > Br.dat   # atoms 1+2 = Br
+* awk '{print $1, $5}'     matdyn.phdos > C.dat    # atom 3 = C
+* awk '{print $1, $6+$7}' matdyn.phdos > Tc.dat   # atoms 4+5 = Tc
 **Purpose:** Obtain total and atom-projected phonon DOS.
 
 ## 11. Prepare electron–phonon coupling input for lambda.in
