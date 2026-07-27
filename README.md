@@ -1,17 +1,5 @@
 # Br-adsorbed Tc₂C superconductivity workflow (Quantum ESPRESSO)
 This guide explains the complete workflow used to calculate the superconducting critical temperature (Tc) of a bromine (Br) adsorbed Tc₂C monolayer.
-## A. Optimisation of planewave (ecutwfc)
-## B. Optimisation of k-points
-## C. Optimisation of pseudopotential
-## D. Optimisation of degauss value
-Here, run the following two lines of code
-chmod +x degauss.sh
-./degauss.sh
-after then smearing_results.dat file will be created, and use the awk command
-awk '$1=="fd" {print $2, $3}' smearing_results.dat > fd.dat
-awk '$1=="gauss" {print $2, $3}' smearing_results.dat > gauss.dat
-awk '$1=="mp" {print $2, $3}' smearing_results.dat > mp.dat
-awk '$1=="mv" {print $2, $3}' smearing_results.dat > mv.dat
 
 ## 1. Build adsorption structures
 Create three structures by placing the Br atom at different adsorption sites:
@@ -24,7 +12,12 @@ pw.x < scf_topC.in  > scf_topC.out
 pw.x < scf_bridge.in > scf_bridge.out
 Choose the structure with the **lowest total energy**, and also total and absolute magnetisation need to be zero.
 
-## 2. Optimise the structure (vc-relax)
+## 2. Convergence test
+
+## 2.A. Optimisation of planewave (ecutwfc)
+## 2.B. Optimisation of k-points
+## 2.C. Optimisation of lattice
+## 2.D. Do vc-relax
 Run variable-cell relaxation:
 pw.x < vc_relax.in > vc_relax.out
 Copy the following from "vc_relax. out":
@@ -35,6 +28,16 @@ Paste them into:
 * "scf.in"
 * "dense_scf.in"
 Use these optimised positions for all remaining calculations.
+## 2.E. Optimisation of pseudopotential
+## 2.F. Optimisation of degauss value
+Here, run the following two lines of code
+chmod +x degauss.sh
+./degauss.sh
+after then smearing_results.dat file will be created, and use the awk command
+awk '$1=="fd" {print $2, $3}' smearing_results.dat > fd.dat
+awk '$1=="gauss" {print $2, $3}' smearing_results.dat > gauss.dat
+awk '$1=="mp" {print $2, $3}' smearing_results.dat > mp.dat
+awk '$1=="mv" {print $2, $3}' smearing_results.dat > mv.dat
 
 ## 3. If negative phonon frequencies appear
 After phonon calculations, check the *.frq.gp files.
