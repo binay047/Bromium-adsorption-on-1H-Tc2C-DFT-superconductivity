@@ -122,7 +122,7 @@ Inside extract_a2F_lambda.py, in file_path, you need to paste the path to a2F.do
 python3 extract_a2F_lambda.py
 plot. dat using xmgrace
 ## 13. plot linewidth
-lambda.x <linewidth.in> linewidth.out
+plotband.x <linewidth.in> linewidth.out
 and run python3 linewidth_plot.py
 ## 13. 
 python3 plot_fermi_surface.py aiida_fs.bxsf -o fermi_surface_Tc2CBr2.png
