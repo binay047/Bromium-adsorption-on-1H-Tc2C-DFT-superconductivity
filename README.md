@@ -69,7 +69,7 @@ After phonon calculations, check the *.frq.gp files.
 * dftd3_threebody = .false.
 * run:
 * mpirun -np 8 d3hess.x < d3hess.in > d3hess.out
-  Otherwise, skip this step.
+* Otherwise, skip this step.
 
 ## 7. Phonon calculation
 * mpirun -np 8 ph.x < ph.in > ph.out
@@ -94,37 +94,37 @@ After phonon calculations, check the *.frq.gp files.
 **Purpose:** Obtain total and atom-projected phonon DOS.
 
 ## 11. Prepare electron–phonon coupling input for lambda.in
-Open ph. out and find the q-points listed for dyn.*.
-Example:
-16 0.02 0
-4
-0.000000000   0.000000000   0.000000000   1
-0.000000000   0.288675135   0.000000000   6
-0.000000000  -0.577350269   0.000000000   3
-0.250000000   0.433012702   0.000000000   6
-elph_dir/elph.inp_lambda.1
-elph_dir/elph.inp_lambda.2
-elph_dir/elph.inp_lambda.3
-elph_dir/elph.inp_lambda.4
-0.10
+* Open ph. out and find the q-points listed for dyn.*.
+* Example:
+* 16 0.02 0
+* 4
+* 0.000000000   0.000000000   0.000000000   1
+* 0.000000000   0.288675135   0.000000000   6
+* 0.000000000  -0.577350269   0.000000000   3
+* 0.250000000   0.433012702   0.000000000   6
+* elph_dir/elph.inp_lambda.1
+* elph_dir/elph.inp_lambda.2
+* elph_dir/elph.inp_lambda.3
+* elph_dir/elph.inp_lambda.4
+* 0.10
 * 16 → total number of q-points.
 * 0.02 → degauss value used in ph. in.
 * 4 → number of irreducible q-points.
 * The next four lines are q-point coordinates and weights.
 * elph.inp_lambda.* → electron–phonon data files.
 * 0.10 → Coulomb pseudopotential (μ*).
-lambda.x <lambda.in> lambda.out
-note: if there is any minus sign in elph. inp_lambda.* lines before Gauss broadening, then remove the negative sign
+* lambda.x <lambda.in> lambda.out
+* Note: if there is any minus sign in elph. inp_lambda.* lines before Gauss broadening, then remove the negative sign
 ## 12. Generate α²F(ω) and λ(ω)
 
-Run:
-Inside extract_a2F_lambda.py, in file_path, you need to paste the path to a2F.dos10, and a2F.dos10 is chosen using the converged value of Tc calculated from lambda.in
-python3 extract_a2F_lambda.py
-plot. dat using xmgrace
+* Run:
+* Inside extract_a2F_lambda.py, in file_path, you need to paste the path to a2F.dos10, and a2F.dos10 is chosen using the converged value of Tc calculated from lambda.in
+* python3 extract_a2F_lambda.py
+* plot. dat using xmgrace
 ## 13. plot linewidth
-plotband.x <linewidth.in> linewidth.out
-and run python3 linewidth_plot.py
+* plotband.x <linewidth.in> linewidth.out
+* and run python3 linewidth_plot.py
 ## 13. 
-python3 plot_fermi_surface.py aiida_fs.bxsf -o fermi_surface_Tc2CBr2.png
+* python3 plot_fermi_surface.py aiida_fs.bxsf -o fermi_surface_Tc2CBr2.png
 
 
