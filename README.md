@@ -6,7 +6,7 @@ Create three structures by placing the Br atom at different adsorption sites:
 * **Top of Tc** → Br has the same x and y coordinates as a Tc atom.
 * **Top of C** → Br has the same x and y coordinates as the C atom.
 * **Bridge site** → Br is placed midway between two Tc atoms.
-Run a quick SCF calculation for each structure and compare the total energies.
+* Run a quick SCF calculation for each structure and compare the total energies.
 pw.x < scf_topTc.in > scf_topTc.out
 pw.x < scf_topC.in  > scf_topC.out
 pw.x < scf_bridge.in > scf_bridge.out
