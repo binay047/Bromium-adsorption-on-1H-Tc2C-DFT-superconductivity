@@ -40,10 +40,10 @@ Create three structures by placing the Br atom at different adsorption sites:
 * "ATOMIC_POSITIONS"
 * Note: BFGS must be converged, and to find relaxed  cell_parameters and atomic_positions, press Ctrl + F inside vc_relax.out and type 'final bfgs'
 * Paste them into:
-* "scf.in"
-* "dense_scf.in"
+* "scf. in" that is inside pseudo.sh 
 * Use these optimised positions for all remaining calculations.
 ## 2.E. Optimisation of pseudopotential
+*chm
 ## 2.F. Optimisation of degauss value
 * Here, run the following two lines of code
 * chmod +x degauss.sh
@@ -75,6 +75,7 @@ After phonon calculations, check the *.frq.gp files.
 
 * Example with 8 cores:
 * mpirun -np 8 pw.x < scf.in > scf.out
+* mpirun -np 8 pw.x <dense.in> dense.out
 
 ## 5. Dense electronic calculation
 
