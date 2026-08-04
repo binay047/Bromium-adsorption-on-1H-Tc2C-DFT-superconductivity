@@ -43,7 +43,7 @@ Create three structures by placing the Br atom at different adsorption sites:
 * "scf. in" that is inside pseudo.sh 
 * Use these optimised positions for all remaining calculations.
 ## 2.E. Optimisation of pseudopotential
-*chm
+* chmod
 ## 2.F. Optimisation of degauss value
 * Here, run the following two lines of code
 * chmod +x degauss.sh
@@ -54,7 +54,38 @@ Create three structures by placing the Br atom at different adsorption sites:
 * awk '$1=="mp" {print $2, $3}' smearing_results.dat > mp.dat
 * awk '$1=="mv" {print $2, $3}' smearing_results.dat > mv.dat
 
-## 3. If negative phonon frequencies appear
+## 3. SCF calculation
+
+* Use the **same number of MPI cores** for all calculations below if you are doing calculations using recover mode.
+
+* Example with 8 cores:
+* mpirun -np 8 pw.x < scf.in > scf.out
+* mpirun -np 8 pw.x <dense.in> dense.out
+
+## 4. Dense electronic calculation
+
+## 5. D3 Hessian calculation (only if D3 correction is used)
+* If scf. in contains:
+* vdw_corr = 'grimme-d3'
+* dftd3_threebody = .false.
+* run:
+* mpirun -np 8 d3hess.x < d3hess.in > d3hess.out
+* Otherwise, skip this step.
+
+## 6. Phonon calculation
+* mpirun -np 8 ph.x < ph.in > ph.out
+
+## 7. Convert dynamical matrices
+* q2r.x < q2r.in > q2r.out
+**Purpose:** Convert phonon data to real-space force constants.
+
+## 8. Phonon band structure
+* matdyn.x < matdyn.in > matdyn.out
+* plotband.x < plotband.in > plotband.out
+**Purpose:** Generate phonon dispersion data for plotting.
+* Check the generated *.frq.gp files for negative frequencies.
+  
+## 9. If negative phonon frequencies appear
 After phonon calculations, check the *.frq.gp files.
 * If all frequencies are **positive**, continue.
 * If any frequency is **negative**, apply a small strain and relax again.
@@ -67,39 +98,8 @@ After phonon calculations, check the *.frq.gp files.
 * For example: to apply 1% tensile strain, you need to multiply the 1st and 2nd rows of cell_parameters by 1.01, and for compressive 1% by 0.99
 * Run relaxation again:
 * pw.x < relax.in > relax. out
-* Update the atomic positions from relax.out and use them in every later step.
-
-## 4. SCF calculation
-
-* Use the **same number of MPI cores** for all calculations below if you are doing calculations using recover mode.
-
-* Example with 8 cores:
-* mpirun -np 8 pw.x < scf.in > scf.out
-* mpirun -np 8 pw.x <dense.in> dense.out
-
-## 5. Dense electronic calculation
-
-## 6. D3 Hessian calculation (only if D3 correction is used)
-* If scf. in contains:
-* vdw_corr = 'grimme-d3'
-* dftd3_threebody = .false.
-* run:
-* mpirun -np 8 d3hess.x < d3hess.in > d3hess.out
-* Otherwise, skip this step.
-
-## 7. Phonon calculation
-* mpirun -np 8 ph.x < ph.in > ph.out
-
-## 8. Convert dynamical matrices
-* q2r.x < q2r.in > q2r.out
-**Purpose:** Convert phonon data to real-space force constants.
-
-## 9. Phonon band structure
-* matdyn.x < matdyn.in > matdyn.out
-* plotband.x < plotband.in > plotband.out
-**Purpose:** Generate phonon dispersion data for plotting.
-* Check the generated *.frq.gp files for negative frequencies.
-
+* Update the atomic positions from relax.out and use them in every later step from step 3 to step 9.
+* 
 ## 10. Phonon density of states (PhDOS)
 * matdyn.x < phdos.in > phdos.out
 * Extract total and atomic contributions:
@@ -137,11 +137,11 @@ After phonon calculations, check the *.frq.gp files.
 * Inside extract_a2F_lambda.py, in file_path, you need to paste the path to a2F.dos10, and a2F.dos10 is chosen using the converged value of Tc calculated from lambda.in
 * python3 extract_a2F_lambda.py
 * plot. dat using xmgrace
-## 13. plot linewidth
+## 13. plot phononlinewidth
 * plotband.x <linewidth.in> linewidth.out
 * and run python3 linewidth_plot.py
 * plot elph.gamma.5.gnu using xmgrace
-## 13. 
+## 13. fermi surfaceplot
 * python3 plot_fermi_surface.py aiida_fs.bxsf -o fermi_surface_Tc2CBr2.png
 
 
