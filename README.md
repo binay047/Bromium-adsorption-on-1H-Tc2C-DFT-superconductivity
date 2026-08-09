@@ -7,7 +7,7 @@ This guide explains the complete workflow used to calculate the superconducting 
 ## 1. Build adsorption structures
 
 ### Theory
-Adatom adsorption on a 2D monolayer can occupy several inequivalent high-symmetry sites — directly above a metal atom ("top"), above the non-metal atom, or in a "bridge" position between two neighboring atoms — and the energetically preferred site is not known a priori; it must be determined by comparing total energies. The most stable configuration is the global minimum of
+Adsorption on a 2D monolayer can occupy several inequivalent high-symmetry sites — directly above a metal atom ("top"), above the non-metal atom, or in a "bridge" position between two neighboring atoms — and the energetically preferred site is not known a priori; it must be determined by comparing total energies. The most stable configuration is the global minimum of
 
 $$
 E_{\text{ads}} = E_{\text{total}}(\text{site})
