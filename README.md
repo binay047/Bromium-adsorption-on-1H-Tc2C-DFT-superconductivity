@@ -53,7 +53,7 @@ Take an ecut that is converged and use that in the input file for optimisation o
 ### 2.B. Optimisation of k-points
 
 ```bash
-chmod +x kpoi.t.sh
+chmod +x kpoint.sh
 ```
 ```bash
 ./kpoint.sh
