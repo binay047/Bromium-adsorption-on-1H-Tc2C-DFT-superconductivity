@@ -59,20 +59,6 @@ Take a converged value and use that in the input file for optimisation of lattic
 chmod +x lattice.sh
 ./lattice.sh
 ```
-
-In the same lattice directory, run `ev.x` in the terminal and answer the prompts:
-
-```
-ev.x
-ang
-noncubic
-4
-input file name: lattice.dat
-output file name: bin
-```
-
-Take this a0 from `bin` into `vc_relax.in`.
-
 ### 2.D. Do vc-relax
 
 Run variable-cell relaxation:
@@ -123,7 +109,7 @@ Use the **same number of MPI cores** for all calculations below if you are doing
 
 ```bash
 mpirun -np 8 pw.x < scf.in > scf.out
-mpirun -np 8 pw.x < dense.in > dense.out
+
 ```
 
 ---
@@ -132,6 +118,10 @@ mpirun -np 8 pw.x < dense.in > dense.out
 
 *A non-self-consistent calculation on a denser k-mesh than the SCF run is required for an accurate evaluation of the double-delta-function surface integral at the Fermi level, which underlies the electron-phonon coupling strength $\lambda_{\mathbf{q}\nu}$ computed in later steps — a sparse mesh under-resolves the Fermi surface and produces noisy or inaccurate $\lambda$ values.*
 
+```bash
+mpirun -np 8 pw.x < dense.in > dense.out
+
+```
 ---
 
 ## 5. D3 Hessian Calculation (only if D3 correction is used)
