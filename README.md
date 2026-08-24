@@ -125,7 +125,7 @@ awk '$1=="mv" {print $2, $3}' smearing_results.dat > mv.dat
 ```
 Plot `fd.dat, gauss.dat, mp.dat and mv.dat` using xmgrace at same place.
 
-Take the converged degauss value and smearing types
+Take the converged degauss value and smearing types for scf.in calculation.
 
 ---
 
