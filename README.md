@@ -158,12 +158,9 @@ mpirun -np 8 pw.x < dense.in > dense.out
 
 If `scf.in` contains:
 
-```
-vdw_corr = 'grimme-d3'
-dftd3_threebody = .false.
-```
 
-run:
+> vdw_corr = 'grimme-d3'
+> dftd3_threebody = .false.
 
 ```bash
 mpirun -np 8 d3hess.x < d3hess.in > d3hess.out
