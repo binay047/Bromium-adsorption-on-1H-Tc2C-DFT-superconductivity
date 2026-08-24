@@ -85,14 +85,15 @@ Copy the following from `vc_relax.out`:
 
 Paste them into `scf.in`, which is inside `pseudo.sh`. Use these optimized positions for all remaining calculations.
 
-### 2.E. Optimisation of pseudopotential
+### 2.E. Pseudopotential Selection
+
+Pseudopotentials are tested to select a suitable set for the calculations. Different pseudopotentials can produce different structural and energetic properties, so the optimized lattice parameters and convergence should be compared before selecting the final pseudopotential.
 
 ```bash
 chmod +x pseudo.sh
 ```
 ```bash
 ./pseudo.sh
-```
 
 ### 2.F. Optimisation of degauss value
 
