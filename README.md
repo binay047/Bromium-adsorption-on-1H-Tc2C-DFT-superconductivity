@@ -13,7 +13,7 @@ $$
 E_{\text{ads}} = E_{\text{total}}(\text{site})
 $$
 
-across the candidate sites, evaluated at fixed (unrelaxed or lightly relaxed) geometry via a quick SCF pass. The magnetization check (total and absolute magnetization $\to 0$) is a physical consistency requirement here: Tc₂C-based systems are expected to be nonmagnetic in the correct ground state for this study, so a candidate structure converging to a finite magnetic moment signals either the wrong adsorption site or an unphysical electronic configuration, not just a higher-energy one.
+across the candidate sites, evaluated at fixed (unrelaxed or lightly relaxed) geometry via a quick SCF pass.
 
 ### Procedure
 Create three structures by placing the Br atom at different adsorption sites:
