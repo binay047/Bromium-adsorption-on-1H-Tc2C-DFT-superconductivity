@@ -65,6 +65,8 @@ Take a converged value and use that in the input file for optimisation of lattic
 
 ```bash
 chmod +x lattice.sh
+```
+```bash
 ./lattice.sh
 ```
 ### 2.D. Do vc-relax
