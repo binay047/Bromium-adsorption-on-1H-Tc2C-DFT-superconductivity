@@ -131,7 +131,7 @@ Take the converged degauss value and smearing types for scf.in calculation.
 
 ## 3. SCF Calculation
 
-*The self-consistent field calculation solves the Kohn-Sham equations to self-consistency on the relaxed structure, producing the converged ground-state charge density \{n(r)\}that all subsequent steps (phonons, electron-phonon coupling, DOS) depend on. Using identical MPI core counts across the workflow matters specifically for QE's recover/restart mode, since parallelization-dependent data (k-point and PW pool distribution) written to the scratch directory must match on restart.*
+*The self-consistent field calculation solves the Kohn-Sham equations to self-consistency on the relaxed structure, producing the converged ground-state charge density \{n(r)\} that all subsequent steps (phonons, electron-phonon coupling, DOS) depend on. Using identical MPI core counts across the workflow matters specifically for QE's recover/restart mode, since parallelization-dependent data (k-point and PW pool distribution) written to the scratch directory must match on restart.*
 
 Use the **same number of MPI cores** for all calculations below if you are doing calculations using recover mode. Example with 8 cores:
 
@@ -144,7 +144,7 @@ mpirun -np 8 pw.x < scf.in > scf.out
 
 ## 4. Dense Electronic Calculation
 
-*A non-self-consistent calculation on a denser k-mesh than the SCF run is required for an accurate evaluation of the double-delta-function surface integral at the Fermi level, which underlies the electron-phonon coupling strength $\lambda_{\mathbf{q}\nu}$ computed in later steps — a sparse mesh under-resolves the Fermi surface and produces noisy or inaccurate $\ lambda$ values.*
+*A non-self-consistent calculation on a denser k-mesh than the SCF run is required for an accurate evaluation of the double-delta-function surface integral at the Fermi level, which underlies the electron-phonon coupling strength \(\lambda_{\mathbf{q}\nu}\)  computed in later steps — a sparse mesh under-resolves the Fermi surface and produces noisy or inaccurate $\ lambda$ values.*
 
 ```bash
 mpirun -np 8 pw.x < dense.in > dense.out
