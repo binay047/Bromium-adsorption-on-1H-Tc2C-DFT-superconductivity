@@ -43,6 +43,8 @@ Choose the structure with the **lowest total energy**, and also total and absolu
 
 ```bash
 chmod +x ecut.sh
+```
+```bash
 ./ecut.sh
 ```
 
@@ -52,6 +54,8 @@ Take an ecut that is converged and use that in the input file for optimisation o
 
 ```bash
 chmod +x kpoi.t.sh
+```
+```bash
 ./kpoint.sh
 ```
 
