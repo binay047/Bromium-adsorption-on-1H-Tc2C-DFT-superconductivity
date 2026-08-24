@@ -60,10 +60,10 @@ As with any plane-wave DFT calculation, results are only meaningful once three n
 * Copy the following from "vc_relax. out":
 * "CELL_PARAMETERS"
 * "ATOMIC_POSITIONS"
-* Note: BFGS must be converged, and to find relaxed  cell_parameters and atomic_positions, press Ctrl + F inside vc_relax.out and type 'final bfgs'
-* Paste them into:
-* "scf. in" that is inside pseudo.sh
-* Use these optimised positions for all remaining calculations.
+ Note: BFGS must be converged, and to find relaxed  cell_parameters and atomic_positions, press Ctrl + F inside vc_relax.out and type 'final bfgs'
+ Paste them into:
+ "scf. in" that is inside pseudo.sh
+ Use these optimised positions for all remaining calculations.
 
 ### 2.E. Optimisation of pseudopotential
 * chmod
