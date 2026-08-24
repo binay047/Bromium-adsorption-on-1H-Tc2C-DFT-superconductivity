@@ -119,9 +119,9 @@ awk '$1=="mp" {print $2, $3}' smearing_results.dat > mp.dat
 ```bash
 awk '$1=="mv" {print $2, $3}' smearing_results.dat > mv.dat
 ```
-Plot `fd.dat, gauss.dat, mp.dat and mv.dat` using xmgrace at same plot.
+Plot `fd.dat, gauss.dat, mp.dat and mv.dat` using xmgrace at same place.
 
-Take the converge degauss value and smearing types
+Take the converged degauss value and smearing types
 
 ---
 
