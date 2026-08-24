@@ -270,7 +270,7 @@ $$
 
 Open `ph.out` and find the q-points listed for `dyn.*`. Example `lambda.in` content:
 
-```
+```text
 16 0.02 0
 4
 0.000000000   0.000000000   0.000000000   1
