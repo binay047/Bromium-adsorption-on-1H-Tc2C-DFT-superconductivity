@@ -96,7 +96,7 @@ chmod +x pseudo.sh
 
 ### 2.F. Optimisation of degauss value
 
-*For metallic (or narrow-gap) 2D systems, partial occupations near \(E_F\) are handled via smearing, and the choice of smearing scheme and width (`degauss`) can shift total energies and derived quantities like the electron-phonon coupling. This step scans several smearing types (Fermi-Dirac "fd", Gaussian "gauss", Methfessel-Paxton "mp", Marzari-Vanderbilt "mv") and widths, so a value can be chosen where the total energy is stable with respect to further reduction of `degauss` — since the McMillan/Eliashberg electron-phonon calculations in later steps are directly sensitive to this choice through the double-delta-function sum at $E_F$.*
+*For metallic (or narrow-gap) 2D systems, partial occupations near \(E_F\) are handled via smearing, and the choice of smearing scheme and width (`degauss`) can shift total energies and derived quantities like the electron-phonon coupling. This step scans several smearing types (Fermi-Dirac "fd", Gaussian "gauss", Methfessel-Paxton "mp", Marzari-Vanderbilt "mv") and widths, so a value can be chosen where the total energy is stable with respect to further reduction of `degauss` — since the McMillan/Eliashberg electron-phonon calculations in later steps are directly sensitive to this choice through the double-delta-function sum at \(E_F\).*
 
 ```bash
 chmod +x degauss.sh
@@ -124,7 +124,7 @@ awk '$1=="mv" {print $2, $3}' smearing_results.dat > mv.dat
 
 ## 3. SCF Calculation
 
-*The self-consistent field calculation solves the Kohn-Sham equations to self-consistency on the relaxed structure, producing the converged ground-state charge density $n(\mathbf{r})$ that all subsequent steps (phonons, electron-phonon coupling, DOS) depend on. Using identical MPI core counts across the workflow matters specifically for QE's recover/restart mode, since parallelization-dependent data (k-point and PW pool distribution) written to the scratch directory must match on restart.*
+*The self-consistent field calculation solves the Kohn-Sham equations to self-consistency on the relaxed structure, producing the converged ground-state charge density \(n(r)\) that all subsequent steps (phonons, electron-phonon coupling, DOS) depend on. Using identical MPI core counts across the workflow matters specifically for QE's recover/restart mode, since parallelization-dependent data (k-point and PW pool distribution) written to the scratch directory must match on restart.*
 
 Use the **same number of MPI cores** for all calculations below if you are doing calculations using recover mode. Example with 8 cores:
 
