@@ -37,7 +37,7 @@ Choose the structure with the **lowest total energy**, and also total and absolu
 
 ## 2. Convergence Test
 
-*As with any plane-wave DFT calculation, results are only meaningful once three numerical parameters — the plane-wave cutoff, the k-point sampling density, and the in-plane lattice constant — are converged, since all downstream quantities (density, energy, phonons, electron-phonon coupling) inherit any residual error from these choices. Each is optimized sequentially and fed forward into the next: a converged $E_{\text{cut}}$ fixes the basis for the k-point scan, a converged k-mesh fixes the sampling for the lattice/volume scan, and the resulting equilibrium lattice constant $a_0$ (from fitting $E_{\text{tot}}(a)$ to an equation of state via `ev.x`) is then used in a variable-cell relaxation (`vc-relax`) to obtain the fully relaxed cell geometry and atomic positions used in every subsequent step.*
+*As with any plane-wave DFT calculation, results are only meaningful once three numerical parameters — the plane-wave cutoff, the k-point sampling density, and the in-plane lattice constant — are converged, since all downstream quantities (density, energy, phonons, electron-phonon coupling) inherit any residual error from these choices. Each is optimized sequentially and fed forward into the next: a converged $E_{\ text{cut}}$ fixes the basis for the k-point scan, a converged k-mesh fixes the sampling for the lattice/volume scan, and the resulting equilibrium lattice constant $a_0$ (from fitting $E_{\text{tot}}(a)$ to an equation of state via `ev.x`) is then used in a variable-cell relaxation (`vc-relax`) to obtain the fully relaxed cell geometry and atomic positions used in every subsequent step.*
 
 ### 2.A. Optimisation of planewave (ecutwfc)
 
