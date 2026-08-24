@@ -234,7 +234,7 @@ $$
 
 The `a2F.dos*` files QE produces correspond to different smearing widths (`degauss` values) used in the double-delta sum; the specific file chosen (`a2F.dos10` here) is the one whose resulting $\lambda$/$T_c$ was found converged with respect to smearing width in Step 2.F, so that the reported $T_c$ is not an artifact of an under- or over-broadened Fermi-surface sum.
 
-* Inside extract_a2F_lambda.py, in the file_path line,  you need to paste the path of a2F.dos10, and a2F.dos10 is chosen using the converged value of Tc calculated from lambda.in
+* Inside extract_a2F_lambda.py, in the file_path line,  you need to paste the path of a2F.dos10, and a2F.dos10 is chosen using the converged value of Tc calculated from lambda.in which is shown in lambda.out
 * python3 extract_a2F_lambda.py
 * plot. dat using xmgrace
 
