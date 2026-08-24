@@ -134,7 +134,7 @@ mpirun -np 8 pw.x < scf.in > scf.out
 
 ## 4. Dense Electronic Calculation
 
-*A non-self-consistent calculation on a denser k-mesh than the SCF run is required for an accurate evaluation of the double-delta-function surface integral at the Fermi level, which underlies the electron-phonon coupling strength $\lambda_{\mathbf{q}\nu}$ computed in later steps — a sparse mesh under-resolves the Fermi surface and produces noisy or inaccurate $\lambda$ values.*
+*A non-self-consistent calculation on a denser k-mesh than the SCF run is required for an accurate evaluation of the double-delta-function surface integral at the Fermi level, which underlies the electron-phonon coupling strength $\lambda_{\mathbf{q}\nu}$ computed in later steps — a sparse mesh under-resolves the Fermi surface and produces noisy or inaccurate $\ lambda$ values.*
 
 ```bash
 mpirun -np 8 pw.x < dense.in > dense.out
