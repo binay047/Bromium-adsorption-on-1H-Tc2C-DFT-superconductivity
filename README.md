@@ -285,8 +285,8 @@ Open `ph.out` and find the q-points listed for `dyn.*`. Example `lambda.in` cont
 - `16` → total number of q-points.
 - `0.02` → degauss value used in `ph.in`.
 - `4` → number of irreducible q-points.
-- The next four lines are q-point coordinates and weights.
-- `elph.inp_lambda.*` → electron–phonon data files.
+- The next four lines are q-point coordinates and number of qpoints.
+- `elph.inp_lambda.*` → electron–phonon data files inside elph directory.
 - `0.10` → Coulomb pseudopotential (μ*).
 
 ```bash
