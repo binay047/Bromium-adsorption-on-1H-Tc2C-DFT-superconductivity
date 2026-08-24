@@ -23,7 +23,11 @@ Run a quick SCF calculation for each structure and compare the total energies:
 
 ```bash
 pw.x < scf_topTc.in > scf_topTc.out
+```
+```bash
 pw.x < scf_topC.in  > scf_topC.out
+```
+```bash
 pw.x < scf_bridge.in > scf_bridge.out
 ```
 
