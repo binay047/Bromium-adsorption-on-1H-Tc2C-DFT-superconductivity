@@ -88,7 +88,10 @@ Paste them into `scf.in`, which is inside `pseudo.sh`. Use these optimized posit
 ### 2.E. Optimisation of pseudopotential
 
 ```bash
-chmod
+chmod +x pseudo.sh
+```
+```bash
+./pseudo.sh
 ```
 
 ### 2.F. Optimisation of degauss value
