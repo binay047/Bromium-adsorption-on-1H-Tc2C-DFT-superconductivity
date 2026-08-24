@@ -240,13 +240,13 @@ Extract total and atomic contributions:
 awk '{print $1,$2}' matdyn.phdos > total.dat
 ```
 ```bash
-awk '{print $1, $3+$4}' matdyn.phdos > Br.dat   # atoms 1+2 = Br
+awk '{print $1, $3+$4}' matdyn.phdos > Br.dat   
 ```
 ```bash
-awk '{print $1, $5}'     matdyn.phdos > C.dat    # atom 3 = C
+awk '{print $1, $5}'     matdyn.phdos > C.dat    
 ```
 ```bash
-awk '{print $1, $6+$7}' matdyn.phdos > Tc.dat   # atoms 4+5 = Tc
+awk '{print $1, $6+$7}' matdyn.phdos > Tc.dat  
 ```
 
 **Purpose:** Obtain total and atom-projected phonon DOS.
