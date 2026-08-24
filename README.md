@@ -194,6 +194,8 @@ q2r.x < q2r.in > q2r.out
 
 ```bash
 matdyn.x < matdyn.in > matdyn.out
+```
+```bash
 plotband.x < plotband.in > plotband.out
 ```
 
@@ -320,6 +322,8 @@ Plot `a2F_combined.dat` using xmgrace.
 
 ```bash
 plotband.x < linewidth.in > linewidth.out
+```
+```bash
 python3 linewidth_plot.py
 ```
 
