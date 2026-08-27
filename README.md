@@ -333,7 +333,7 @@ Before running, edit `lambda_ep` and `omega_ln` in `Tc.py` to match the **conver
 ```bash
 python3 Tc.py
 ```
-This writes `Tc_vs_mu.dat`, a two-column file of $\mu^*$ against $T_c$(K)spanning $\mu^*$ = 0.10 to 0.20 in steps of 0.01.
+This writes `Tc_vs_mu.dat`, a two-column file of $\mu^*$ against $T_c$(K)
 
 **Purpose:** Obtain the superconducting critical temperature as a function of $\mu^*$.
 
