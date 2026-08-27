@@ -83,7 +83,7 @@ Copy the following from `vc_relax.out`:
 
 **Note:** BFGS must be converged. To find the relaxed `CELL_PARAMETERS` and `ATOMIC_POSITIONS`, press `Ctrl+F` inside `vc_relax.out` and search for `final bfgs`.
 
-Paste them into `scf.in`, which is inside `pseudo.sh`. Use these optimized positions for all remaining calculations.
+Paste them into `scf.in`, which is inside `pseudo.sh`. Remember `vc_relax.out` gives `cell_parameters` in bohr so change it into angstrom before pasting. Use these optimized positions for all remaining calculations.
 
 ### 2.E. Pseudopotential Selection
 
