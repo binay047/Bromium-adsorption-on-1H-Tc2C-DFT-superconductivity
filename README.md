@@ -131,7 +131,7 @@ Take the converged degauss value and smearing types for scf.in calculation.
 
 ## 3. SCF Calculation
 
-*The self-consistent field calculation solves the Kohn-Sham equations to self-consistency on the relaxed structure, producing the converged ground-state charge density \{n(r)\} that all subsequent steps (phonons, electron-phonon coupling, DOS) depend on. Using identical MPI core counts across the workflow matters specifically for QE's recover/restart mode, since parallelization-dependent data (k-point and PW pool distribution) written to the scratch directory must match on restart.*
+The self-consistent field calculation solves the Kohn-Sham equations to self-consistency on the relaxed structure, producing the converged ground-state charge density \{n(r)\} that all subsequent steps (phonons, electron-phonon coupling, DOS) depend on. Using identical MPI core counts across the workflow matters specifically for QE's recover/restart mode, since parallelization-dependent data (k-point and PW pool distribution) written to the scratch directory must match on restart.
 
 Use the **same number of MPI cores** for all calculations below if you are doing calculations using recover mode. Example with 8 cores:
 
@@ -144,7 +144,7 @@ mpirun -np 8 pw.x < scf.in > scf.out
 
 ## 4. Dense Electronic Calculation
 
-*A non-self-consistent calculation on a denser k-mesh than the SCF run is required for an accurate evaluation of the double-delta-function surface integral at the Fermi level, which underlies the electron-phonon coupling strength $\lambda_{\mathbf{q}\nu}$ computed in later steps — a sparse mesh under-resolves the Fermi surface and produces noisy or inaccurate $\lambda$ values.*
+A non-self-consistent calculation on a denser k-mesh than the SCF run is required for an accurate evaluation of the double-delta-function surface integral at the Fermi level, which underlies the electron-phonon coupling strength $\lambda_{\mathbf{q}\nu}$ computed in later steps — a sparse mesh under-resolves the Fermi surface and produces noisy or inaccurate $\lambda$ values.
 
 ```bash
 mpirun -np 8 pw.x < dense.in > dense.out
@@ -154,7 +154,7 @@ mpirun -np 8 pw.x < dense.in > dense.out
 
 ## 5. D3 Hessian Calculation (only if D3 correction is used)
 
-*When Grimme's DFT-D3 dispersion correction is included in the SCF Hamiltonian, its contribution to the dynamical matrix (Hessian of the total energy, including the D3 pairwise-correction term) must be computed separately and added to the DFPT phonon calculation, since standard `ph.x` DFPT does not natively differentiate the semi-empirical D3 energy term. Omitting this step when D3 is active would produce a dynamical matrix inconsistent with the SCF Hamiltonian actually used.*
+When Grimme's DFT-D3 dispersion correction is included in the SCF Hamiltonian, its contribution to the dynamical matrix (Hessian of the total energy, including the D3 pairwise-correction term) must be computed separately and added to the DFPT phonon calculation, since standard `ph.x` DFPT does not natively differentiate the semi-empirical D3 energy term. Omitting this step when D3 is active would produce a dynamical matrix inconsistent with the SCF Hamiltonian actually used.
 
 If `scf.in` contains:
 
@@ -171,7 +171,7 @@ Otherwise, skip this step.
 
 ## 6. Phonon Calculation
 
-*Using Density Functional Perturbation Theory, `ph.x` computes the dynamical matrix $D(\mathbf{q})$ at each q-point in the chosen mesh directly from the linear response of the self-consistent density to atomic displacements, without the need for finite supercells. This is the foundational step for everything electron-phonon and superconductivity related in this workflow: the phonon frequencies, eigenvectors, and (via the `elph` machinery invoked here) the electron-phonon matrix elements are all obtained from this single DFPT run.*
+Using Density Functional Perturbation Theory, `ph.x` computes the dynamical matrix $D(\mathbf{q})$ at each q-point in the chosen mesh directly from the linear response of the self-consistent density to atomic displacements, without the need for finite supercells. This is the foundational step for everything electron-phonon and superconductivity related in this workflow: the phonon frequencies, eigenvectors, and (via the `elph` machinery invoked here) the electron-phonon matrix elements are all obtained from this single DFPT run.
 
 ```bash
 mpirun -np 8 ph.x < ph.in > ph.out
@@ -181,7 +181,7 @@ mpirun -np 8 ph.x < ph.in > ph.out
 
 ## 7. Convert Dynamical Matrices
 
-*`q2r.x` inverse-Fourier-transforms the dynamical matrices $D(\mathbf{q})$, known only on the coarse DFPT q-mesh, into real-space interatomic force constants $C(\mathbf{R})$. This real-space representation can then be interpolated back onto an arbitrarily dense q-path or q-mesh (Step 8, 10), which is far cheaper than running DFPT directly on a dense mesh.*
+`q2r.x` inverse-Fourier-transforms the dynamical matrices $D(\mathbf{q})$, known only on the coarse DFPT q-mesh, into real-space interatomic force constants $C(\mathbf{R})$. This real-space representation can then be interpolated back onto an arbitrarily dense q-path or q-mesh (Step 8, 10), which is far cheaper than running DFPT directly on a dense mesh.
 
 ```bash
 q2r.x < q2r.in > q2r.out
@@ -193,7 +193,7 @@ q2r.x < q2r.in > q2r.out
 
 ## 8. Phonon Band Structure
 
-*`matdyn.x` Fourier-interpolates the real-space force constants back onto a dense path of q-points through the Brillouin zone to produce the phonon dispersion $\omega_s(\mathbf{q})$, and `plotband.x` formats this for plotting. Checking for negative (imaginary) frequencies anywhere along the path is the standard test of dynamical stability — an imaginary branch indicates the relaxed structure sits at a saddle point of the potential energy surface rather than a true local minimum, which invalidates any electron-phonon/Tc result computed on that structure.*
+`matdyn.x` Fourier-interpolates the real-space force constants back onto a dense path of q-points through the Brillouin zone to produce the phonon dispersion $\omega_s(\mathbf{q})$, and `plotband.x` formats this for plotting. Checking for negative (imaginary) frequencies anywhere along the path is the standard test of dynamical stability — an imaginary branch indicates the relaxed structure sits at a saddle point of the potential energy surface rather than a true local minimum, which invalidates any electron-phonon/Tc result computed on that structure.
 
 ```bash
 matdyn.x < matdyn.in > matdyn.out
@@ -210,7 +210,7 @@ Check the generated `*.frq.gp` files for negative frequencies.
 
 ## 9. If Negative Phonon Frequencies Appear
 
-*An imaginary phonon branch in a 2D monolayer very often originates from residual in-plane stress left over from an imperfect relaxation (common in 2D systems due to the interplay of the vacuum region and the fixed out-of-plane lattice vector). Applying a small in-plane (uniaxial) strain and re-relaxing perturbs the structure enough to let BFGS find a genuinely stable local minimum, which is why the strain is applied only to the in-plane lattice vectors (rows 1 and 2) while the vacuum-containing row is left untouched — straining the vacuum direction has no physical meaning for a 2D sheet.*
+An imaginary phonon branch in a 2D monolayer very often originates from residual in-plane stress left over from an imperfect relaxation (common in 2D systems due to the interplay of the vacuum region and the fixed out-of-plane lattice vector). Applying a small in-plane (uniaxial) strain and re-relaxing perturbs the structure enough to let BFGS find a genuinely stable local minimum, which is why the strain is applied only to the in-plane lattice vectors (rows 1 and 2) while the vacuum-containing row is left untouched — straining the vacuum direction has no physical meaning for a 2D sheet.
 
 After phonon calculations, check the `*.frq.gp` files.
 - If all frequencies are **positive**, continue.
@@ -233,7 +233,7 @@ Update the atomic positions from `relax.out` and use them in every later step fr
 
 ## 10. Phonon Density of States (PhDOS)
 
-*The phonon DOS $g(\omega)$, obtained the same way as the dispersion but integrated over a dense q-mesh rather than a path, is required as the vibrational input to the McMillan-Allen-Dynes formula for $T_c$ (via the Eliashberg spectral function in later steps) and lets low- versus high-frequency contributions be attributed to specific atomic species. Splitting into atomic contributions (Br, C, Tc) is done by summing the appropriate atom-resolved columns of the `matdyn.phdos` output, matching each atom index to its species in the unit cell.*
+The phonon DOS $g(\omega)$, obtained the same way as the dispersion but integrated over a dense q-mesh rather than a path, is required as the vibrational input to the McMillan-Allen-Dynes formula for $T_c$ (via the Eliashberg spectral function in later steps) and lets low- versus high-frequency contributions be attributed to specific atomic species. Splitting into atomic contributions (Br, C, Tc) is done by summing the appropriate atom-resolved columns of the `matdyn.phdos` output, matching each atom index to its species in the unit cell.
 
 ```bash
 matdyn.x < phdos.in > phdos.out
@@ -260,13 +260,13 @@ awk '{print $1, $6+$7}' matdyn.phdos > Tc.dat
 
 ## 11. Prepare Electron–Phonon Coupling Input for lambda.in
 
-*The mode- and q-point-resolved electron-phonon coupling strengths $\lambda_{\mathbf{q}\nu}$, computed by `ph.x` during Step 6 and written to the `elph_dir/elph.inp_lambda.*` files, must be assembled with their q-point weights (from the irreducible q-point list QE prints in `ph.out`) into a single `lambda.in` file. `lambda.x` then performs the Brillouin-zone sum*
+The mode- and q-point-resolved electron-phonon coupling strengths $\lambda_{\mathbf{q}\nu}$, computed by `ph.x` during Step 6 and written to the `elph_dir/elph.inp_lambda.*` files, must be assembled with their q-point weights (from the irreducible q-point list QE prints in `ph.out`) into a single `lambda.in` file. `lambda.x` then performs the Brillouin-zone sum
 
 $$
 \lambda = \sum_{\mathbf{q}\nu} \lambda_{\mathbf{q}\nu}\, w_{\mathbf{q}}
 $$
 
-*to obtain the total isotropic electron-phonon coupling constant $\lambda$, and combines it with the Coulomb pseudopotential $\mu^*$ (empirical parameter capturing residual Coulomb repulsion between Cooper-pair electrons, screened by the phonon-mediated retardation) in the McMillan-Allen-Dynes equation to estimate $T_c$.*
+to obtain the total isotropic electron-phonon coupling constant $\lambda$, and combines it with the Coulomb pseudopotential $\mu^*$ (empirical parameter capturing residual Coulomb repulsion between Cooper-pair electrons, screened by the phonon-mediated retardation) in the McMillan-Allen-Dynes equation to estimate $T_c$.
 
 Open `ph.out` and find the q-points listed for `dyn.*`. Example `lambda.in` content:
 
@@ -299,13 +299,13 @@ lambda.x < lambda.in > lambda.out
 
 ## 12. Generate α²F(ω) and λ(ω)
 
-*The Eliashberg spectral function $\alpha^2F(\omega)$ encodes the frequency-resolved strength of electron-phonon coupling and is the central input to the Allen-Dynes formula for $T_c$:*
+The Eliashberg spectral function $\alpha^2F(\omega)$ encodes the frequency-resolved strength of electron-phonon coupling and is the central input to the Allen-Dynes formula for $T_c$:
 
 $$
 \lambda = 2\int_0^\infty \frac{\alpha^2F(\omega)}{\omega}\, d\omega
 $$
 
-*The `a2F.dos*` files QE produces correspond to different smearing widths (`degauss` values) used in the double-delta sum; the specific file chosen (`a2F.dos10` here) is the one whose resulting $\lambda$ / $T_c$ was found converged with respect to smearing width used in `scf.in`, so that the reported $T_c$ is not an artifact of an under- or over-broadened Fermi-surface sum.*
+The `a2F.dos*` files QE produces correspond to different smearing widths (`degauss` values) used in the double-delta sum; the specific file chosen (`a2F.dos10` here) is the one whose resulting $\lambda$ / $T_c$ was found converged with respect to smearing width used in `scf.in`, so that the reported $T_c$ is not an artifact of an under- or over-broadened Fermi-surface sum.
 
 In the `file_path` line of `extract_a2F_lambda.py`, paste the path of `a2F.dos*`, where `*` = 1, 2, 3 ... 10 is chosen according to which number your degauss value lies at in `lambda.out`, counting from the top.
 
@@ -319,7 +319,7 @@ Plot `a2F_combined.dat` using xmgrace.
 
 ## 13. Plot Phonon Linewidth
 
-*The phonon linewidth $\gamma_{\mathbf{q}\nu}$ is directly proportional to the mode-resolved electron-phonon coupling $\lambda_{\mathbf{q}\nu}\,\omega_{\mathbf{q}\nu}$ — phonon modes that couple strongly to the electronic states at $E_F$ are damped (broadened) more strongly by their interaction with the electron gas. Plotting linewidth against the phonon dispersion identifies which specific vibrational branches and q-points drive the total coupling $\lambda$, which is useful for physically interpreting which bonds/motions are responsible for the superconducting pairing.*
+The phonon linewidth $\gamma_{\mathbf{q}\nu}$ is directly proportional to the mode-resolved electron-phonon coupling $\lambda_{\mathbf{q}\nu}\,\omega_{\mathbf{q}\nu}$ — phonon modes that couple strongly to the electronic states at $E_F$ are damped (broadened) more strongly by their interaction with the electron gas. Plotting linewidth against the phonon dispersion identifies which specific vibrational branches and q-points drive the total coupling $\lambda$, which is useful for physically interpreting which bonds/motions are responsible for the superconducting pairing.
 
 ```bash
 plotband.x < linewidth.in > linewidth.out
@@ -334,7 +334,7 @@ Plot `elph.gamma.5.gnu` using xmgrace.
 
 ## 14. Fermi Surface Plot
 
-*The Fermi surface — the constant-energy surface $\varepsilon_n(\mathbf{k}) = E_F$ in reciprocal space — determines which electronic states participate in the double-delta-function sum underlying $\lambda_{\mathbf{q}\nu}$; its shape (nesting features, sheet multiplicity, curvature) can directly explain why certain phonon q-vectors couple more strongly than others in Step 13's linewidth plot. `plot_fermi_surface.py` visualizes this surface from the `.bxsf` file QE writes containing $\varepsilon_n(\mathbf{k})$ on the full k-mesh.*
+The Fermi surface — the constant-energy surface $\varepsilon_n(\mathbf{k}) = E_F$ in reciprocal space — determines which electronic states participate in the double-delta-function sum underlying $\lambda_{\mathbf{q}\nu}$; its shape (nesting features, sheet multiplicity, curvature) can directly explain why certain phonon q-vectors couple more strongly than others in Step 13's linewidth plot. `plot_fermi_surface.py` visualizes this surface from the `.bxsf` file QE writes containing $\varepsilon_n(\mathbf{k})$ on the full k-mesh.
 
 ```bash
 python3 plot_fermi_surface.py aiida_fs.bxsf -o fermi_surface_Tc2CBr2.png
