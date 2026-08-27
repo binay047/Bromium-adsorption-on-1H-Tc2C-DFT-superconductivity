@@ -316,8 +316,32 @@ python3 extract_a2F_lambda.py
 Plot `a2F_combined.dat` using xmgrace.
 
 ---
+---
 
-## 13. Plot Phonon Linewidth
+## 13. Calculate Tc via the McMillan Equation
+
+With $\lambda$ (the isotropic electron-phonon coupling constant, from `lambda.out` in Step 11) and $\omega_{\ln}$ (the logarithmic-average phonon frequency, likewise read off `lambda.out`) in hand, the McMillan equation converts these two physical quantities into a superconducting critical temperature as a function of the empirical Coulomb pseudopotential $\mu^*$:
+
+$$
+T_c = \frac{\omega_{\ln}}{1.2}\exp\left[\frac{-1.04(1+\lambda)}{\lambda-\mu^*(1+0.62\lambda)}\right]
+$$
+
+Because $\mu^*$ is not computed directly by QE but is instead an empirical screening parameter (typically taken in the range 0.10–0.20 for conventional superconductors), `Tc.py` sweeps over this range and reports $T_c$ at each value rather than committing to a single number.
+
+Before running, edit `lambda_ep` and `omega_ln` in `Tc.py` to match the **converged** values from `lambda.out` — i.e. the values corresponding to the degauss value you settled on via the `degauss.sh` convergence test in Step 2.F, not just whichever `a2F.dos*`/`lambda.out` happens to be open.
+
+```bash
+python3 Tc.py
+```
+
+This writes `Tc_vs_mu.dat`, a two-column file of $\mu^*$ against $T_c$(K) spanning $\mu^* = 0.10$ to $0.20$ in steps of $0.01$.
+
+**Purpose:** Obtain the superconducting critical temperature as a function of $\mu^*$.
+
+```bash
+xmgrace Tc_vs_mu.dat
+```
+## 14. Plot Phonon Linewidth
 
 The phonon linewidth $\gamma_{\mathbf{q}\nu}$ is directly proportional to the mode-resolved electron-phonon coupling $\lambda_{\mathbf{q}\nu}\,\omega_{\mathbf{q}\nu}$ — phonon modes that couple strongly to the electronic states at $E_F$ are damped (broadened) more strongly by their interaction with the electron gas. Plotting linewidth against the phonon dispersion identifies which specific vibrational branches and q-points drive the total coupling $\lambda$, which is useful for physically interpreting which bonds/motions are responsible for the superconducting pairing.
 
@@ -332,7 +356,7 @@ Plot `elph.gamma.5.gnu` using xmgrace.
 
 ---
 
-## 14. Fermi Surface Plot
+## 15. Fermi Surface Plot
 
 The Fermi surface — the constant-energy surface $\varepsilon_n(\mathbf{k}) = E_F$ in reciprocal space — determines which electronic states participate in the double-delta-function sum underlying $\lambda_{\mathbf{q}\nu}$; its shape (nesting features, sheet multiplicity, curvature) can directly explain why certain phonon q-vectors couple more strongly than others in Step 13's linewidth plot. `plot_fermi_surface.py` visualizes this surface from the `.bxsf` file QE writes containing $\varepsilon_n(\mathbf{k})$ on the full k-mesh.
 
