@@ -12,7 +12,7 @@ $$
 E_{\text{ads}} = E_{\text{total}}(\text{site})
 $$
 
-*across the candidate sites, evaluated at fixed (unrelaxed or lightly relaxed) geometry via a quick SCF pass.*
+across the candidate sites, evaluated at fixed (unrelaxed or lightly relaxed) geometry via a quick SCF pass.
 
 Create three structures by placing the Br atom at different adsorption sites:
 - **Top of Tc** → Br has the same x and y coordinates as a Tc atom.
@@ -37,7 +37,7 @@ Choose the structure with the **lowest total energy**, and also total and absolu
 
 ## 2. Convergence Test
 
-*As with any plane-wave DFT calculation, results are only meaningful once three numerical parameters — the plane-wave cutoff, the k-point sampling density, and the in-plane lattice constant — are converged, since all downstream quantities (density, energy, phonons, electron-phonon coupling) inherit any residual error from these choices.
+As with any plane-wave DFT calculation, results are only meaningful once three numerical parameters — the plane-wave cutoff, the k-point sampling density, and the in-plane lattice constant — are converged, since all downstream quantities (density, energy, phonons, electron-phonon coupling) inherit any residual error from these choices.
 
 ### 2.A. Optimisation of planewave (ecutwfc)
 
@@ -100,7 +100,7 @@ Take a pseudopotential that give lattice parameter near to experimental value an
 Take that pseudopotenial in degauss calculation.
 ### 2.F. Optimisation of degauss value
 
-*For metallic (or narrow-gap) 2D systems, partial occupations near \(E_F\) are handled via smearing, and the choice of smearing scheme and width (`degauss`) can shift total energies and derived quantities like the electron-phonon coupling. This step scans several smearing types (Fermi-Dirac "fd", Gaussian "gauss", Methfessel-Paxton "mp", Marzari-Vanderbilt "mv") and widths, so a value can be chosen where the total energy is stable with respect to further reduction of `degauss` — since the McMillan/Eliashberg electron-phonon calculations in later steps are directly sensitive to this choice through the double-delta-function sum at \(E_F\).*
+For metallic (or narrow-gap) 2D systems, partial occupations near \(E_F\) are handled via smearing, and the choice of smearing scheme and width (`degauss`) can shift total energies and derived quantities like the electron-phonon coupling. This step scans several smearing types (Fermi-Dirac "fd", Gaussian "gauss", Methfessel-Paxton "mp", Marzari-Vanderbilt "mv") and widths, so a value can be chosen where the total energy is stable with respect to further reduction of `degauss` — since the McMillan/Eliashberg electron-phonon calculations in later steps are directly sensitive to this choice through the double-delta-function sum at \(E_F\).
 
 ```bash
 chmod +x degauss.sh
