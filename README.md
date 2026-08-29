@@ -301,7 +301,7 @@ Run relaxation again:
 pw.x < relax.in > relax.out
 ```
 
-Update the atomic positions from `relax.out` and use them in every later step from step 3 to step 9.
+Update the atomic positions from `relax.out` and use them in every later step from step 3 to step 9. Run calculation upto 3 to 7 and only go to step 9 when phonon is positive.
 
 ---
 
