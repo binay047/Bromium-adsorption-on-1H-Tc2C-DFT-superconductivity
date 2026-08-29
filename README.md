@@ -128,6 +128,82 @@ Plot `fd.dat, gauss.dat, mp.dat and mv.dat` using xmgrace at same place.
 Take the converged degauss value and smearing types for scf.in calculation.
 
 ---
+## 3. Density of States (DOS) and Projected DOS
+
+### Theory
+
+The total density of states $g(E)$ counts the number of electronic states per unit energy per unit cell,
+
+$$
+g(E) = \sum_{n,\mathbf{k}} \delta(E - \varepsilon_{n\mathbf{k}})
+$$
+
+and is obtained from a non-self-consistent (`nscf`) calculation on a dense k-mesh, using the density converged in the preceding `scf` step. The projected DOS (PDOS) decomposes $g(E)$ onto atomic orbital character by projecting the Bloch states onto localized atomic basis functions $|\phi_{i}\rangle$,
+
+$$
+g_i(E) = \sum_{n,\mathbf{k}} |\langle \phi_i | \psi_{n\mathbf{k}} \rangle|^2 \, \delta(E-\varepsilon_{n\mathbf{k}})
+$$
+
+which identifies which atomic species and orbitals dominate the states near the Fermi level or band edges — essential for interpreting bonding character and (for magnetic systems) spin-resolved contributions, hence the separate spin-up/spin-down (`raw_up.dat`/`raw_down.dat`) extraction below.
+
+### Procedure
+
+```bash
+mpirun -np 8 pw.x < scf.in > scf.out
+```
+```bash
+mpirun -np 8 pw.x < nscf.in > nscf.out
+```
+```bash
+dos.x < dos.in > dos.out
+```
+
+```bash
+awk 'NR>1 {print $1, $2}' dos.dat > raw_up.dat
+```
+```bash
+awk 'NR>1 {print $1, -$3}' dos.dat > raw_down.dat
+```
+
+```bash
+projwfc.x < pdos.in > pdos.out
+```
+
+```bash
+sumpdos.x *\(Br\)* > atom_Br_tot.dat
+```
+```bash
+sumpdos.x *\(Tc\)* > atom_Tc_tot.dat
+```
+```bash
+sumpdos.x *\(C\)* > atom_C_tot.dat
+```
+---
+
+## 4. Band Structure
+
+### Theory
+
+The electronic band structure $\varepsilon_n(\mathbf{k})$ is computed along a path of high-symmetry k-points through the Brillouin zone (chosen here via XCrySDen for the F-43m lattice), starting from the converged charge density of the `scf` run. Plotting $\varepsilon_n(\mathbf{k})$ along this path reveals the fundamental (in)direct band gap, band dispersion/effective masses, and — combined with the PDOS from Section 3 — the orbital origin of the states forming the valence and conduction band edges.
+
+### Procedure
+
+```bash
+mpirun -np 8 pw.x < scf.in > scf.out
+```
+```bash
+mpirun -np 8 pw.x < band.in > band.out
+```
+
+> **Note:** k-points in `band.in` are generated using XCrySDen.
+
+```bash
+bands.x < bands.in > bands.out
+```
+
+Plot the `bands_plot.bands.gnu` file using xmgrace.
+
+---
 
 ## 3. SCF Calculation
 
