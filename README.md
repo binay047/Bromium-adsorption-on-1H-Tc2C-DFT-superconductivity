@@ -426,7 +426,6 @@ python3 linewidth_plot.py
 ```
 
 Plot `elph.gamma.5.gnu` using xmgrace.
-
 ---
 
 ## 14. Fermi Surface Plot
