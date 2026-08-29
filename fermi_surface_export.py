@@ -17,11 +17,7 @@ One script, three outputs, from a single QE BXSF file:
 ------------------------------------------------------------------
 USAGE
 
-    python3 fermi_surface_export.py aiida_fs.bxsf \
-        --a1 2.9426199818 0.0 \
-        --a2 -1.4713099909 2.5483836579 \
-        --alat-bohr 5.560746 \
-        --outdir fs_out
+    python3 fermi_surface_export.py aiida_fs.bxsf --a1 2.9426199818 0.0 --a2 -1.4713099909 2.5483836579  --alat-bohr 5.560746 --outdir fs_out
 
 If --a1/--a2/--alat-bohr are omitted, velocities are RELATIVE only.
 ------------------------------------------------------------------
