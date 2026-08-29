@@ -235,7 +235,7 @@ When Grimme's DFT-D3 dispersion correction is included in the SCF Hamiltonian, i
 
 If `scf.in` contains:
 
-> vdw_corr = 'grimme-d3'
+> vdw_corr = 'grimme-d3'  
 > dftd3_threebody = .false.
 
 ```bash
