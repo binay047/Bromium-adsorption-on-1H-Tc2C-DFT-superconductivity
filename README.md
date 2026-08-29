@@ -32,7 +32,6 @@ pw.x < scf_bridge.in > scf_bridge.out
 ```
 
 Choose the structure with the **lowest total energy**, and also total and absolute magnetisation need to be zero.
-
 ---
 
 ## 2. Convergence Test
@@ -126,7 +125,6 @@ awk '$1=="mv" {print $2, $3}' smearing_results.dat > mv.dat
 Plot `fd.dat, gauss.dat, mp.dat and mv.dat` using xmgrace at same place.
 
 Take the converged degauss value and smearing types for scf.in calculation.
-
 ---
 ## 3. Density of States (DOS) and Projected DOS
 
@@ -202,7 +200,6 @@ bands.x < bands.in > bands.out
 ```
 
 Plot the `bands_plot.bands.gnu` file using xmgrace.
-
 ---
 
 ## 5. Phonon Calculation
@@ -243,7 +240,6 @@ mpirun -np 8 d3hess.x < d3hess.in > d3hess.out
 ```
 
 Otherwise, skip this step.
-
 ---
 
 ### 5.4 Phonon Calculation (DFPT)
@@ -262,7 +258,6 @@ q2r.x < q2r.in > q2r.out
 ```
 
 **Purpose:** Convert phonon data to real-space force constants.
-
 ---
 
 ## 7. Phonon Band Structure
@@ -279,7 +274,6 @@ plotband.x < plotband.in > plotband.out
 Check the generated `*.frq.gp` files for negative frequencies.
 
 **Purpose:** Generate phonon dispersion data for plotting.
-
 ---
 
 ## 8. If Negative Phonon Frequencies Appear
@@ -302,7 +296,6 @@ pw.x < relax.in > relax.out
 ```
 
 Update the atomic positions from `relax.out` and use them in every later step from step 3 to step 9. Run calculation upto 3 to 7 and only go to step 9 when phonon is positive.
-
 ---
 
 ## 9. Phonon Density of States (PhDOS)
@@ -329,7 +322,6 @@ awk '{print $1, $6+$7}' matdyn.phdos > Tc.dat
 ```
 
 **Purpose:** Obtain total and atom-projected phonon DOS.
-
 ---
 
 ## 10. Prepare Electron–Phonon Coupling Input for lambda.in
@@ -368,7 +360,6 @@ lambda.x < lambda.in > lambda.out
 ```
 
 **Note:** if there is any minus sign in `elph.inp_lambda.*` lines before Gauss broadening, remove the negative sign.
-
 ---
 
 ## 11. Generate α²F(ω) and λ(ω)
@@ -388,9 +379,8 @@ python3 extract_a2F_lambda.py
 ```
 
 Plot `a2F_combined.dat` using xmgrace.
+---
 
----
----
 
 ## 12. Calculate Tc via the McMillan Equation
 
