@@ -421,11 +421,9 @@ Plot `elph.gamma.5.gnu` using xmgrace.
 ## 14. Fermi Surface Plot
 The Fermi surface — the constant-energy surface $\varepsilon_n(\mathbf{k}) = E_F$ in reciprocal space — determines which electronic states participate in the double-delta-function sum underlying $\lambda_{\mathbf{q}\nu}$; its shape (nesting features, sheet multiplicity, curvature) can directly explain why certain phonon q-vectors couple more strongly than others in Step 13's linewidth plot. Both scripts below read the `.bxsf` file QE writes containing $\varepsilon_n(\mathbf{k})$ on the full k-mesh.
 
-`plot_fermi_surface.py` renders a quick-look PNG directly:
 ```bash
   python3 fermi_surface_export.py aiida_fs.bxsf --a1 2.8272228857 0.0 --a2 −1.413611443 2.448446841  --alat-bohr 5.3426765626 --outdir fs_out
 ```
-`export_fs_dat.py` instead writes the raw contour coordinates as `.dat` files, for cases where the PNG isn't publication-ready and the surface needs to be styled manually:
 ```bash
 python3 export_fs_dat.py aiida_fs.bxsf --tile 3 --outdir fs_dat
 ```
