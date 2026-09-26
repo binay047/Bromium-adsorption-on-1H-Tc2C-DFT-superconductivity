@@ -359,7 +359,7 @@ Open `ph.out` and find the q-points listed for `dyn.*`. Example `lambda.in` cont
 lambda.x < lambda.in > lambda.out
 ```
 
-**Note:** if there is any minus sign in `elph.inp_lambda.*` lines before Gauss broadening, remove the negative sign.
+**Note:** inside eplh_dir, if there is any minus sign in `elph.inp_lambda.*` lines before Gauss broadening, remove the negative sign.
 ---
 
 ## 11. Generate α²F(ω) and λ(ω)
